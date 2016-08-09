@@ -18,6 +18,7 @@
                 height: 50px;
                 left: 160px;
                 top: 0;
+                color:#ebe7ce;
             }
 
             #imgtag p {
@@ -26,6 +27,7 @@
                 width: 80px;
                 height: 50px;
                 left: 160px;
+                color:#ebe7ce;
             }
 
             #imgtag ul {
@@ -41,15 +43,55 @@
                 background:#e4e0c9;
                 border:1px solid black;
             }
+        img {
+            width:400px;
+            height:500px;
+        }
+        .active {
+            background:#ff6a00;
+        }
     </style>
+    <script type="text/javascript">
+
+        window.onload = function () {
+            var oSpan = document.getElementsByTagName('span')[0];
+            var oImg = document.getElementsByTagName('img')[0];
+            var oP = document.getElementsByTagName('p')[0];
+            var oUl = document.getElementsByTagName('ul')[0];
+            var arr = ['图片一', '图片二', '图片三', '图片四'];
+            //为li添加点击切换图片事件
+            var aLi = oUl.getElementsByTagName('li');
+            for (var i = 0; i < aLi.length; i++) {
+
+                aLi[i].index = i;
+
+                aLi[i].onclick = function () {
+                    //给span添加图片序号
+                    oSpan.innerHTML = (this.index+1) + '/' + aLi.length;
+
+                    //给p添加图片说明
+                    oP.innerHTML = arr[this.index];
+                    //给img修改图片路径
+                    oImg.src = 'img/' + (this.index+1) + '.png';
+                    //更改li的样式
+                    for (var j = 0; j < aLi.length; j++) {
+                        aLi[j].style.backgroundColor = '#e4e0c9';
+                    }
+                    this.style.backgroundColor = '#ff6a00';
+                };
+            }
+
+        };
+
+    </script>
 </head>
 <body>
     <div id="imgtag">
-        <span>1/4</span>
+        <span></span>
         <img src="img/1.png" />
         <p>图片</p>
         <ul>
-            <li><a></a></li>
+            <li></li>
             <li></li>
             <li></li>
             <li></li>
