@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script>
+        window.onload = function () {
+            var aBtn = document.getElementsByTagName('input');
+            var arr =['A','B','C','D'];
+            for (var i = 0; i < aBtn.length; i++) {
+                aBtn[i].index = 0;
+                aBtn[i].onclick = function () {
+                    this.value = arr[this.index];
+                    this.index++;
+                    if (this.index == arr.length) {
+                        this.index = 0;
+                    }
+                }
+            }
+        };
+
+
+    </script>
+</head>
+<body>
+    <input type="button" value="点击" />
+    <input type="button" value="点击" />
+    <input type="button" value="点击" />
+</body>
+</html>

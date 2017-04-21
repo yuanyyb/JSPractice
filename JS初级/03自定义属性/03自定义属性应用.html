@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style>
+        p {
+            height:40px;
+            width:70px;
+            font-size:18px;
+            background:#e1cbcb;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var names = ['张三', '李四', '王五'];
+            var aBtn = document.getElementsByTagName('input');
+            var aP = document.getElementsByTagName('p');
+            for (var i = 0; i < aBtn.length; i++) {
+                aBtn[i].index = i;
+                aBtn[i].onclick = function () {
+                    this.value = names[this.index];
+                    aP[this.index].innerHTML = names[this.index];
+                };
+            }
+        }
+        
+        
+
+    </script>
+</head>
+<body>
+    <input type="button" value="btn1" />
+    <input type="button" value="btn2" />
+    <input type="button" value="btn3" />
+    <p></p>
+    <p></p>
+    <p></p>
+</body>
+</html>
