@@ -63,26 +63,47 @@
             var oImg = document.getElementsByTagName('img')[0];
             var oP = document.getElementsByTagName('p')[0];
             var oUl = document.getElementsByTagName('ul')[0];
+            var aLi = oUl.getElementsByTagName('li');//此处能动态获取添加的li
             var arr = ['图片一', '图片二', '图片三', '图片四'];
             var srcs = ['img/1.png', 'img/2.png', 'img/3.png', 'img/4.png'];
+            //添加li
+            for (var i = 0; i < srcs.length; i++) {
+                oUl.innerHTML += "<li></li>";
+            } 
+            var num = 0;
+            function tag() {
+                oImg.src = srcs[num];
+                oSpan.innerHTML = num + 1 + '/' + srcs.length;
+                oP.innerHTML = arr[num];
+                for (var j = 0; j < aLi.length; j++) {
+                    aLi[j].style.backgroundColor = '#e4e0c9';
+                }
+                aLi[num].style.backgroundColor = '#ff6a00';
+            };
+            tag();
+
+
             //为li添加点击切换图片事件
-            var aLi = oUl.getElementsByTagName('li');
+            
             for (var i = 0; i < aLi.length; i++) {
 
                 aLi[i].index = i;
 
                 aLi[i].onclick = function () {
-                    //给span添加图片序号
-                    oSpan.innerHTML = (this.index+1) + '/' + aLi.length;
-                    //给p添加图片说明
-                    oP.innerHTML = arr[this.index];
-                    //给img修改图片路径
-                    oImg.src = srcs[this.index];
-                    //更改li的样式
-                    for (var j = 0; j < aLi.length; j++) {
-                        aLi[j].style.backgroundColor = '#e4e0c9';
-                    }
-                    this.style.backgroundColor = '#ff6a00';
+                    ////给span添加图片序号
+                    //oSpan.innerHTML = (this.index+1) + '/' + aLi.length;
+                    ////给p添加图片说明
+                    //oP.innerHTML = arr[this.index];
+                    ////给img修改图片路径
+                    //oImg.src = srcs[this.index];
+                    ////更改li的样式
+                    //for (var j = 0; j < aLi.length; j++) {
+                    //    aLi[j].style.backgroundColor = '#e4e0c9';
+                    //}
+                    //this.style.backgroundColor = '#ff6a00';
+                    num = this.index;
+                    tag();
+
                 };
             }
 
@@ -96,10 +117,7 @@
         <img src="" />
         <p>图片</p>
         <ul>
-            <li><a></a></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            
         </ul>
     </div>
 </body>
