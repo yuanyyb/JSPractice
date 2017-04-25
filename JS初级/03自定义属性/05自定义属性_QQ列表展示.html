@@ -23,14 +23,20 @@
             width:100%;
         }
             .lis h2 {
-                height:35px;
-                width:100%;
-                background:url(../03自定义属性/img/ico1.gif) no-repeat left #0094ff;
+                height: 35px;
+                width: 100%;
+                
+                background-image: url(../03自定义属性/img/ico1.gif);
+                background-repeat:no-repeat;
+                background-position-x:left;
+                background-position-y:center;
+                background-color:#0094ff;
                 color:white;
-                text-indent:20px;
-                cursor:pointer;
-                line-height:35px;
+                text-indent: 20px;
+                cursor: pointer;
+                line-height: 35px;
             }
+           
             .lis li {
                 width:100%;
                 text-indent:30px;
@@ -38,6 +44,7 @@
             }
         .lis ul {
             width:100%;
+            display:none;
         }
             .lis ul li {
                 width:100%;
@@ -45,10 +52,38 @@
                 line-height:30px;
             }
     </style>
+    <script>
+        window.onload = function () {
+            //获取对象
+            var oDiv = document.getElementById('list');
+            var aH2 = oDiv.getElementsByTagName('h2');
+            var oUl = document.getElementById('lisul');
+            var aUl = oUl.getElementsByTagName('ul');
+            //点击h2时展开当前对应的ul,并设置当前h2的背景图标向下
+            for (var i = 0; i < aH2.length; i++) {
+                aH2[i].index = i;
+                aH2[i].onclick = function () {
+                    console.log();
+                    aUl[this.index].style.display = 'block';
+                    aH2[this.index].style.backgroundImage = 'url(img/ico2.gif)';
+                }
+
+            }
+
+            //点击展开的ul中的li时背景颜色变化
+
+            //再次点击h2时收起ul，并清除当前选中的li
+            
+
+
+        };
+
+    </script>
+
 </head>
 <body>
     <div id="list">
-        <ul class="lis">
+        <ul id="lisul" class="lis">
             <li>
                 <h2>我的好友</h2>
                 <ul>
