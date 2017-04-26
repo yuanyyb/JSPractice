@@ -67,11 +67,21 @@
             var aH2 = oDiv.getElementsByTagName('h2');
             var oUl = document.getElementById('lisul');
             var aUl = oUl.getElementsByTagName('ul');
+            var onoff = false;//是否设置打开一个时关闭其它所有
             //点击h2时展开当前对应的ul,并设置当前h2的背景图标向下
             for (var i = 0; i < aH2.length; i++) {
                 aH2[i].index = i;
                 aH2[i].onclick = function () {
                     if (this.className == '') {
+                        //已打开的h2置为未打开
+                        if (onoff) {
+                            for (var i = 0; i < aH2.length; i++) {
+                                if (aH2[i].className != '') {
+                                    aH2[i].className = '';
+                                    aUl[i].style.display = 'none';
+                                }
+                            }
+                        }
                         aUl[this.index].style.display = 'block';
                         this.className = 'h2active';
                     } else {
@@ -92,11 +102,20 @@
                 for (var j = 0; j < Lis.length; j++) {
                     aLi.push(Lis[j]);
                     Lis[j].onclick = function () {
-                        //移除其它所有li的选中样式，并让当前li选中
-                        for (var i = 0; i < aLi.length; i++) {
-                            aLi[i].className = '';
+                        if (this.className == '') {//如果点击未选中的li则让此li变为选中
+                            //移除其它所有li的选中样式，并让当前li选中
+                            for (var i = 0; i < aLi.length; i++) {
+                                aLi[i].className = '';
+                            }
+                            this.className = 'liactive';
+                        } else {//如果再次点击选中的li则让此li变为未选中
+                            //移除其它所有li的选中样式，并让当前li选中
+                            for (var i = 0; i < aLi.length; i++) {
+                                aLi[i].className = '';
+                            }
+                            this.className = '';
                         }
-                        this.className = 'liactive';
+                        
                     };
                 }
             }
@@ -106,39 +125,40 @@
 
 </head>
 <body>
-    <div id="list">
-        <ul id="lisul" class="lis">
-            <li>
-                <h2>我的好友</h2>
-                <ul>
-                    <li>好友一</li>
-                    <li>好友二</li>
-                    <li>好友三</li>
-                    <li>好友四</li>
-                </ul>
-            </li>
-            <li>
-                <h2>同事</h2>
-                <ul>
-                    <li>同事一</li>
-                    <li>同事二</li>
-                    <li>同事三</li>
-                    <li>同事四</li>
-                    <li>同事五</li>
-                    <li>同事六</li>
-                </ul>
-            </li>
-            <li>
-                <h2>黑名单</h2>
-                <ul>
-                    <li>张三</li>
-                    <li>李四</li>
-                    <li>王五</li>
-                </ul>
-            </li>
-        </ul>
+
+        <div onoff="true" id="list">
+            <ul id="lisul" class="lis">
+                <li>
+                    <h2>我的好友</h2>
+                    <ul>
+                        <li>好友一</li>
+                        <li>好友二</li>
+                        <li>好友三</li>
+                        <li>好友四</li>
+                    </ul>
+                </li>
+                <li>
+                    <h2>同事</h2>
+                    <ul>
+                        <li>同事一</li>
+                        <li>同事二</li>
+                        <li>同事三</li>
+                        <li>同事四</li>
+                        <li>同事五</li>
+                        <li>同事六</li>
+                    </ul>
+                </li>
+                <li>
+                    <h2>黑名单</h2>
+                    <ul>
+                        <li>张三</li>
+                        <li>李四</li>
+                        <li>王五</li>
+                    </ul>
+                </li>
+            </ul>
 
 
-    </div>
+        </div>
 </body>
 </html>
