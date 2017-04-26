@@ -60,6 +60,7 @@
                 }
     </style>
     <script>
+        //后面学习后改成树插件，暂时保留
         window.onload = function () {
             //获取对象
             var oDiv = document.getElementById('list');
@@ -88,7 +89,6 @@
             var aLi = new Array();
             for (var i = 0; i < aUl.length; i++) {
                 var Lis = aUl[i].getElementsByTagName('li');
-                
                 for (var j = 0; j < Lis.length; j++) {
                     aLi.push(Lis[j]);
                     Lis[j].onclick = function () {
