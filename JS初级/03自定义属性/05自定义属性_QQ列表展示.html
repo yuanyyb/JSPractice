@@ -1,56 +1,63 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <style>
-
-        ul, li ,h2{
-            margin:0;
-            padding:0;
+        ul, li, h2 {
+            margin: 0;
+            padding: 0;
         }
+
         li {
-            list-style:none;
-            border:1px solid black;
+            list-style: none;
+            border: 1px solid black;
         }
 
         #list {
-            margin:0 auto;
-            height:800px;
-            width:300px;
+            margin: 0 auto;
+            height: 800px;
+            width: 300px;
         }
+
         .lis {
-            width:100%;
+            width: 100%;
         }
+
             .lis h2 {
                 height: 35px;
                 width: 100%;
-                
-                background-image: url(../03自定义属性/img/ico1.gif);
-                background-repeat:no-repeat;
-                background-position-x:left;
-                background-position-y:center;
-                background-color:#0094ff;
-                color:white;
+                background: url(img/ico1.gif) no-repeat left #0094ff;
+                color: white;
                 text-indent: 20px;
                 cursor: pointer;
                 line-height: 35px;
             }
-           
+
+            .lis .h2active {
+                background: url(img/ico2.gif) no-repeat left #07395e;
+            }
+
             .lis li {
-                width:100%;
-                text-indent:30px;
-                background:#ffd800;
+                width: 100%;
+                text-indent: 30px;
+                background: #ffd800;
             }
-        .lis ul {
-            width:100%;
-            display:none;
-        }
-            .lis ul li {
-                width:100%;
-                height:30px;
-                line-height:30px;
+
+            .lis ul {
+                width: 100%;
+                display: none;
             }
+
+                .lis ul li {
+                    width: 100%;
+                    height: 30px;
+                    line-height: 30px;
+                }
+
+                .lis ul .liactive {
+                    background: #ff0000;
+                }
     </style>
     <script>
         window.onload = function () {
@@ -63,19 +70,36 @@
             for (var i = 0; i < aH2.length; i++) {
                 aH2[i].index = i;
                 aH2[i].onclick = function () {
-                    console.log();
-                    aUl[this.index].style.display = 'block';
-                    aH2[this.index].style.backgroundImage = 'url(img/ico2.gif)';
+                    if (this.className == '') {
+                        aUl[this.index].style.display = 'block';
+                        this.className = 'h2active';
+                    } else {
+                        this.className = '';
+                        aUl[this.index].style.display = 'none';
+                        //关闭时清空当前ul中li的选中
+                        var thislis = aUl[this.index].getElementsByTagName('li');
+                        for (var i = 0; i < thislis.length; i++) {
+                            thislis[i].className = '';
+                        }
+                    }
                 }
-
             }
-
             //点击展开的ul中的li时背景颜色变化
-
-            //再次点击h2时收起ul，并清除当前选中的li
-            
-
-
+            var aLi = new Array();
+            for (var i = 0; i < aUl.length; i++) {
+                var Lis = aUl[i].getElementsByTagName('li');
+                
+                for (var j = 0; j < Lis.length; j++) {
+                    aLi.push(Lis[j]);
+                    Lis[j].onclick = function () {
+                        //移除其它所有li的选中样式，并让当前li选中
+                        for (var i = 0; i < aLi.length; i++) {
+                            aLi[i].className = '';
+                        }
+                        this.className = 'liactive';
+                    };
+                }
+            }
         };
 
     </script>
