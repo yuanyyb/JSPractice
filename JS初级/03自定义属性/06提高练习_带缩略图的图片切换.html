@@ -8,7 +8,7 @@
         #imgNav {
             width:700px;
             height:570px;
-            background:#f5eeee;
+            background:#413838;
             margin:30px auto;
         }
             #imgNav p {
@@ -18,6 +18,7 @@
                 line-height:30px;
                 vertical-align:middle;
                 text-indent:20px;
+                color:white;
             }
             #imgNav .imgdiv {
                 height:455px;
@@ -98,8 +99,34 @@
                 clear:both;
                 content:'';
             }
-
+        #showsmall {
+            width:100%;
+            position:relative;
+        }
+            #showsmall div {
+                padding:4px;
+                height:72px;
+                position:absolute;
+                left:250px;
+                top:-72px;
+                background:white;
+            }
+            #showsmall img {
+                margin:0 auto;
+                height:72px;
+                width:118px;
+            }
+            #showsmall span {
+                display:block;
+                background:url(img/tip_bg.png) no-repeat bottom center;
+                height:5px;
+                width:118px;
+                padding-top:1px;
+            }
     </style>
+
+
+
 </head>
 <body>
     <div id="imgNav">
@@ -109,7 +136,12 @@
             <span class="prev_span"><a id="prev_a" href="javascript://"></a></span>
             <span class="next_span"><a id="next_a" href="javascript://"></a></span>
         </div>
-        <div id="showsmall"></div>
+        <div id="showsmall">
+            <div>
+                <img src="img/imgtag1.jpg" />
+                <span></span>
+            </div>
+        </div>
         <ul class="clear">
             <li class="li_active"></li>
             <li></li>
