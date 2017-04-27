@@ -107,9 +107,9 @@
                 padding:4px;
                 height:72px;
                 position:absolute;
-                left:246px;
                 top:-72px;
                 background:white;
+                display:none;
             }
             #showsmall img {
                 margin:0 auto;
@@ -121,12 +121,54 @@
                 background:url(img/tip_bg.png) no-repeat bottom center;
                 height:5px;
                 width:118px;
-                padding-top:1px;
+                padding-top:0px;
             }
     </style>
     <script>
         window.onload = function () {
             //鼠标滑动到li上时，显示对应li位置的缩略图,li变化
+            var addrs = ['img/imgtag1.jpg', 'img/imgtag2.jpg', 'img/imgtag3.jpg', 'img/imgtag4.jpg', 'img/imgtag5.jpg'];
+            var oWrapDiv = document.getElementById('imgNav');
+            var smallDiv = document.getElementById('showsmall');
+            var smallDivin = smallDiv.getElementsByTagName('div')[0];
+            var smallImg = smallDiv.getElementsByTagName('img')[0];
+            var divInleft = 246;//此处控制小图div的初始位置
+            var aLi = oWrapDiv.getElementsByTagName('li');
+            var bigImg = document.getElementById('bigImg');
+            var default_li_index = 0;
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].index = i;
+                aLi[i].onclick = function () {
+                    //大图路径变化
+                    bigImg.src = addrs[this.index];
+                    //当前li样式改变
+                    this.className = 'li_active';
+                    //保存当前选中的li的坐标，用于鼠标移出后恢复初始选中状态
+                    default_li_index = this.index;
+                };
+                //鼠标移入
+                aLi[i].onmouseover = function () {
+                    smallDivin.style.display = 'block';
+                    //移除选中的样式
+                    for (var i = 0; i < aLi.length; i++) {
+                        aLi[i].className = '';
+                    }
+                    //改变li样式
+                    this.className = 'li_active';
+                    //显示小图
+                    smallImg.src = addrs[this.index];
+                    //移动小图位置
+                    smallDivin.style.left = divInleft + this.index * 20 + 'px';
+                };
+                //鼠标移出,恢复选中的li的选中状态
+                aLi[i].onmouseout = function () {
+                    smallDivin.style.display = 'none';
+                    this.className = '';
+                    aLi[default_li_index].className = 'li_active';
+                }
+            }
+
+
             //li点击时改变颜色，大图更改
             //鼠标滑动到左边，左边的按钮不透明，移出后按钮透明，右边相同
             //左右按钮点击图片循环切换
@@ -137,7 +179,7 @@
     <div id="imgNav">
         <p>带缩略图的图片轮换</p>
         <div class="imgdiv">
-            <img src="img/imgtag1.jpg" />
+            <img id="bigImg" src="img/imgtag1.jpg" />
             <span class="prev_span"><a id="prev_a" href="javascript://"></a></span>
             <span class="next_span"><a id="next_a" href="javascript://"></a></span>
         </div>
