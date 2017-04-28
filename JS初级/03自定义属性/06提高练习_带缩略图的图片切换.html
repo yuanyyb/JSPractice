@@ -134,7 +134,7 @@
             var smallImg = smallDiv.getElementsByTagName('img')[0];
             var aLi = oWrapDiv.getElementsByTagName('li');
             var bigImg = document.getElementById('bigImg');
-            var default_li_index = 0;
+            var default_li_index = 0;//使用变量存储点击的元素值（原理？？内存？？）
             var divInleft = 246;//此处控制小图div的初始位置
             var prevSpan = document.getElementsByClassName('prev_span')[0];
             var prevA = document.getElementById('prev_a');
@@ -152,8 +152,6 @@
                     //保存当前选中的li的坐标，用于鼠标移出后恢复初始选中状态
                     default_li_index = this.index;
                 };
-
-
                 //3.鼠标移入
                 aLi[i].onmouseover = function () {
                     smallDivin.style.display = 'block';
