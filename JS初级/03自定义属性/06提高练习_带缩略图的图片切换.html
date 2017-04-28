@@ -50,8 +50,8 @@
         .imgdiv a {
             height:51px;
             width:51px;
-            filter:alpha(opacity=60);
-            opacity:0.6;
+            filter:alpha(opacity=0);
+            opacity:0;
             display:block;
             
         }
@@ -126,17 +126,23 @@
     </style>
     <script>
         window.onload = function () {
-            //鼠标滑动到li上时，显示对应li位置的缩略图,li变化
+            //1.获取元素
             var addrs = ['img/imgtag1.jpg', 'img/imgtag2.jpg', 'img/imgtag3.jpg', 'img/imgtag4.jpg', 'img/imgtag5.jpg'];
             var oWrapDiv = document.getElementById('imgNav');
             var smallDiv = document.getElementById('showsmall');
             var smallDivin = smallDiv.getElementsByTagName('div')[0];
             var smallImg = smallDiv.getElementsByTagName('img')[0];
-            var divInleft = 246;//此处控制小图div的初始位置
             var aLi = oWrapDiv.getElementsByTagName('li');
             var bigImg = document.getElementById('bigImg');
             var default_li_index = 0;
+            var divInleft = 246;//此处控制小图div的初始位置
+            var prevSpan = document.getElementsByClassName('prev_span')[0];
+            var prevA = document.getElementById('prev_a');
+            var nextSpan = document.getElementsByClassName('next_span')[0];
+            var nextA = document.getElementById('next_a');
+
             for (var i = 0; i < aLi.length; i++) {
+                //2.点击li切换
                 aLi[i].index = i;
                 aLi[i].onclick = function () {
                     //大图路径变化
@@ -146,7 +152,9 @@
                     //保存当前选中的li的坐标，用于鼠标移出后恢复初始选中状态
                     default_li_index = this.index;
                 };
-                //鼠标移入
+
+
+                //3.鼠标移入
                 aLi[i].onmouseover = function () {
                     smallDivin.style.display = 'block';
                     //移除选中的样式
@@ -160,18 +168,45 @@
                     //移动小图位置
                     smallDivin.style.left = divInleft + this.index * 20 + 'px';
                 };
-                //鼠标移出,恢复选中的li的选中状态
+                //4.鼠标移出,恢复选中的li的选中状态
                 aLi[i].onmouseout = function () {
                     smallDivin.style.display = 'none';
                     this.className = '';
                     aLi[default_li_index].className = 'li_active';
                 }
             }
-
-
-            //li点击时改变颜色，大图更改
-            //鼠标滑动到左边，左边的按钮不透明，移出后按钮透明，右边相同
-            //左右按钮点击图片循环切换
+            //5.鼠标滑动到左边，左边的按钮不透明，移出后按钮透明，右边相同,左右按钮点击图片循环切换
+            function showhid(span, a) {
+                span.onmouseover = a.onmouseover = function () {
+                    a.style.opacity = "1";
+                    a.style.filter = "alpha(opacity=100)";
+                };
+                span.onmouseout = function () {
+                    a.style.opacity = "0";
+                    a.style.filter = "alpha(opacity=0)";
+                };
+                var num = 0;
+                a.onclick = function () {
+                    if (this.id=='prev_a') {
+                        default_li_index--;
+                        if (default_li_index==-1) {
+                            default_li_index = addrs.length-1;
+                        }
+                    } else if(this.id=='next_a'){
+                        default_li_index++;
+                        if (default_li_index == addrs.length) {
+                            default_li_index = 0;
+                        }
+                    }
+                    for (var i = 0; i < aLi.length; i++) {
+                        aLi[i].className = '';
+                    }
+                    aLi[default_li_index].className = 'li_active';
+                    bigImg.src = addrs[default_li_index];
+                };
+            }
+            showhid(prevSpan,prevA);
+            showhid(nextSpan, nextA);
         }
     </script>
 </head>
