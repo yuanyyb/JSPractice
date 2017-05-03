@@ -1,22 +1,55 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>无标题文档</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <script>
+        window.onload = function () {
+            var oInput = document.getElementById('inp');
+            var oBtn = document.getElementById('btn');
+            oBtn.onclick = function () {
+                if (oInput.value == '') {
+                    alert('请输入内容');
+                    return;
+                }
+                if (isNaN(parseInt(oInput.value))) {
+                    alert('不是数字');
+                    return;
+                }
+                if (!isNaN(Number(oInput.value)) && (Number(oInput.value)+'').length == oInput.value.length) {
+                    
+                } else {
+                    alert('是NaN或者以0开始');
+                    return;
+                }
+                if (parseInt(oInput.value)!=parseFloat(oInput.value)) {
+                    alert('输入的是小数');
+                    return;
+                }
+                if ((Number(oInput.value) + '').length >= 5 && (Number(oInput.value) + '').length<=10) {
+                    alert('正确');
+                } else {
+                    alert('必须5位以上10位以内');
+                    return;
+                }
+            };
+
+        };
+    </script>
 </head>
 
 <body>
 
-请输入QQ号码：<input type="text" />
-<input type="button" value="判断" />
+    请输入QQ号码：<input type="text" id="inp" />
+    <input type="button" id="btn" value="判断" />
 
 
-<br />
-1、有没有输入<br />
-2、输入的是不是数字<br />
-3、不能有0在前面<br />
-4、不能是小数<br />
-5、输入的数字必须在5位以上、10位以内<br />
+    <br />
+    1、有没有输入<br />
+    2、输入的是不是数字<br />
+    3、不能有0在前面<br />
+    4、不能是小数<br />
+    5、输入的数字必须在5位以上、10位以内<br />
 
 </body>
 </html>
