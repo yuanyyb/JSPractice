@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script>
+        //数据类型   string bool number function object:{obj,null,array,json} undifined    
+        //1.NaN 是数字类型，但不是数字
+        //2.不能使用null的属性  eg： var oDiv=null; oDiv.abc  不可这么使用
+        //数据类型转换
+        //显示转化：
+        //Number()     --必须是数字的字符串才能转换成功，否则返回NaN  Number('-0.111'); --> -0.111;  []-->0 ;[1]-->1
+        //parseInt()   --可转换以数字开头的字符串的首次数字部分  parseInt('-1000bbb2222');--> -1000
+        //parseFloat() 
+        //隐式转化:
+        //+
+        //- * / %  eg:'200'-5 -->195
+        //++  --  变数字
+        //><  数字的比较，字符串的比较
+        //!  取反
+        // == 转bool
+
+
+        
+        //tips:判断是不是小数   var a =11;  if(parseInt(a)==parseFloat(a)){ 是整数 }else{ 不是整数 }
+        //     a===a  如果a是NaN 则此式为false  用于判断是不是NaN????
+    </script>
+</head>
+<body>
+
+</body>
+</html>
