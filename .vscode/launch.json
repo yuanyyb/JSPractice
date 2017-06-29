@@ -1,12 +1,11 @@
 {
     "version": "0.2.0",
-    "configurations": [
-        {
+    "configurations": [{
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
             //"url": "http://localhost:8080",
-            "file":"${workspaceRoot}/InterlaceColorChange/rows.html",
+            "file": "${workspaceRoot}/score/pingfen.html",
             "webRoot": "${workspaceRoot}"
         },
         {
