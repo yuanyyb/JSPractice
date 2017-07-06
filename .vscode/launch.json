@@ -5,7 +5,8 @@
             "request": "launch",
             "name": "Launch Chrome against localhost",
             //"url": "http://localhost:8080",
-            "file": "${workspaceRoot}/score/pingfen.html",
+            //"file": "${workspaceRoot}/score/pingfen.html",
+            "file": "${workspaceRoot}/InterlaceColorChange/rows.html",
             "webRoot": "${workspaceRoot}"
         },
         {
