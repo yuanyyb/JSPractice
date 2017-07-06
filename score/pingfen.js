@@ -22,11 +22,11 @@ window.onload = function() {
         };
 
         aLi[i].onmouseover = function() {
-            for (var j = 0; j < aLi.length; j++) {
-                aLi[j].className = '';
-            }
             for (var i = 0; i <= this.index; i++) {
                 aLi[i].className = 'active';
+            }
+            for (var j = aLi.length - 1; j > this.index; j--) {
+                aLi[j].className = '';
             }
             if (this.index < 2) {
                 for (var i = 0; i <= this.index; i++) {
@@ -37,15 +37,22 @@ window.onload = function() {
         };
         aLi[i].onmouseout = function() {
             //this.className='';
+            var j = 0;
             for (var i = 0; i < aLi.length; i++) {
-                if (aLi[i].checked != '1') {
-                    aLi[i].className = '';
-                } else {
-                    //aLi[i].className="active";
+                if (aLi[i].checked && aLi[i].checked == '1') {
                     showLevel(i);
+                    aLi[i].className = "active";
+                    j++;
+                } else {
+                    aLi[i].className = '';
                 }
             }
 
+            if (j <= 2) {
+                for (var m = 0; m < j; m++) {
+                    aLi[m].className = 'chaactive';
+                }
+            }
 
         };
     }
