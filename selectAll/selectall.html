@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" </head>
+    <title></title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        
+        td {
+            padding: 0;
+            margin: 0;
+        }
+        
+        #content {
+            width: 50%;
+            margin: 0 auto;
+        }
+        
+        table {
+            width: 100%;
+            border: 1px solid #dedede;
+        }
+        
+        td {
+            border: none;
+        }
+        
+        td:nth-child(1) {
+            text-align: center;
+        }
+        
+        tbody {
+            border: 1px solid #dedede;
+        }
+        
+        tbody tr {
+            background: #ffffff;
+            height: 30px;
+        }
+        
+        tbody tr:nth-child(2n) {
+            background: #f7ffff;
+        }
+        
+        tbody tr.trchecked {
+            background: #efefef;
+        }
+        
+        tfoot tr {
+            height: 33px;
+        }
+        
+        tfoot td input[type="button"] {
+            margin: 0 5px;
+            height: 25px;
+            width: 65px;
+            border-radius: 3px;
+            border: 1px solid #dedede;
+            background: #fff;
+            padding: 0 10px 0 23px;
+        }
+        
+        tfoot td #collection {
+            background: url(img/icon.png) no-repeat 8px -50px;
+        }
+        
+        tfoot td #add {
+            background: url(img/icon.png) no-repeat 8px 0px;
+        }
+        
+        tfoot td #delete {
+            background: url(img/icon.png) no-repeat 8px -25px;
+        }
+    </style>
+
+    <body>
+        <div id="content">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" value="" /></td>
+                        <td>私奔</td>
+                        <td>梁博</td>
+                    </tr>
+                    <tr class="trchecked">
+                        <td><input type="checkbox" value="" /></td>
+                        <td>北京北京</td>
+                        <td>梁博</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" value="" /></td>
+                        <td>花火</td>
+                        <td>梁博</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" value="" /></td>
+                        <td>我爱你中国</td>
+                        <td>梁博</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" value="" /></td>
+                        <td>回来</td>
+                        <td>梁博</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" value="" /></td>
+                        <td>爱要有你才完美</td>
+                        <td>梁博</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><input id="checkall" type="checkbox" value="all"></td>
+                        <td colspan="2">
+                            <label for="checkall">全选</label>
+                            <input id="collection" type="button" value="收藏" />
+                            <input id="add" type="button" value="添加" />
+                            <input id="delete" type="button" value="删除" />
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </body>
+
+</html>
