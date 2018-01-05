@@ -1,0 +1,170 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="animate.js"></script>
+
+    <title>Document</title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background: red;
+            top: 400px;
+            left: 500px;
+            opacity: 0.3;
+            filter: alpha(opacity=30);
+        }
+    </style>
+    <script>
+        window.onload = function() {
+                var oBtn1 = document.getElementById('btn1');
+                oBtn1.onclick = function() {
+                    var target = document.getElementById('target').value; //目标位置
+                    var speed = document.getElementById('speed').value; //运动幅度
+                    var timeinterval = document.getElementById('timeinterval').value; //运动间隔
+                    var oAnimate = new animate('div1', target, speed, timeinterval);
+                    oAnimate.doXMove();
+                }
+
+                var oBtn2 = document.getElementById('btn2');
+                oBtn2.onclick = function() {
+                    var target = document.getElementById('target').value; //目标位置
+                    var speed = document.getElementById('speed').value; //运动幅度
+                    var timeinterval = document.getElementById('timeinterval').value; //运动间隔
+                    var oAnimate = new animate('div1', target, speed, timeinterval);
+                    oAnimate.doYMove();
+                }
+
+                var oBtn3 = document.getElementById('btn3');
+                oBtn3.onclick = function() {
+                    var target = document.getElementById('target').value; //目标位置
+                    var speed = document.getElementById('speed').value; //运动幅度
+                    var timeinterval = document.getElementById('timeinterval').value; //运动间隔
+                    var oAnimate = new animate('div1', target, speed, timeinterval);
+                    oAnimate.doOpacityChange();
+                }
+            }
+            //     //运动类  运动元素id，目标位置，匀速运动速度,运动间隔时间(毫秒)
+            // function animate(id, target, speed, jiange) {
+            //     this.obj = document.getElementById(id);
+            //     this.curentX = this.obj.offsetLeft;
+            //     this.curentY = this.obj.offsetTop;
+            //     this.curentOpacity = this.getOpacity();
+            //     this.target = parseFloat(target);
+            //     this.jiange = parseFloat(jiange);
+            //     this.speed = parseFloat(speed);
+            // }
+            // //X轴匀速运动方法
+            // animate.prototype.doXMove = function() {
+            //         var _this = this;
+            //         clearInterval(timer);
+            //         var timer = setInterval(function() {
+            //             if (_this.curentX >= _this.target) { //向左移动
+            //                 if (_this.obj.offsetLeft <= _this.target) { //向左运动到达终点
+            //                     _this.curentX = _this.target;
+            //                     clearInterval(timer);
+            //                 } else {
+            //                     _this.curentX -= _this.speed;
+            //                 }
+            //             } else if (_this.curentX < _this.target) { //向右移动
+
+        //                 if (_this.obj.offsetLeft >= _this.target) { //向右运动到达终点
+        //                     _this.curentX = _this.target;
+        //                     clearInterval(timer);
+        //                 } else {
+        //                     _this.curentX += _this.speed;
+        //                 }
+        //             }
+        //             _this.obj.style.left = _this.curentX + 'px';
+        //         }, _this.jiange);
+        //     }
+        //     //Y轴匀速运动方法
+        // animate.prototype.doYMove = function() {
+        //         var _this = this;
+        //         clearInterval(timer);
+        //         var timer = setInterval(function() {
+        //             if (_this.curentY >= _this.target) { //向上移动
+        //                 if (_this.obj.offsetTop <= _this.target) { //向上运动到达终点
+        //                     _this.curentY = _this.target;
+        //                     clearInterval(timer);
+        //                 } else {
+        //                     _this.curentY -= _this.speed;
+        //                 }
+        //             } else if (_this.curentY < _this.target) { //向下移动
+
+        //                 if (_this.obj.offsetTop >= _this.target) { //向下运动到达终点
+        //                     _this.curentY = _this.target;
+        //                     clearInterval(timer);
+        //                 } else {
+        //                     _this.curentY += _this.speed;
+        //                 }
+        //             }
+        //             _this.obj.style.top = _this.curentY + 'px';
+        //         }, _this.jiange);
+        //     }
+        //     //淡入淡出
+        // animate.prototype.doOpacityChange = function() {
+        //         var _this = this;
+        //         clearInterval(timer);
+        //         var timer = setInterval(function() {
+        //             if (_this.curentOpacity >= _this.target) { //淡出
+        //                 if (_this.getOpacity() <= _this.target) {
+        //                     _this.curentOpacity = _this.target;
+        //                     clearInterval(timer);
+        //                 } else {
+        //                     _this.curentOpacity -= _this.speed;
+        //                 }
+        //             } else { //淡入
+        //                 if (_this.getOpacity() >= _this.target) {
+        //                     _this.curentOpacity = _this.target;
+        //                     clearInterval(timer);
+        //                 } else {
+        //                     _this.curentOpacity += _this.speed;
+        //                 }
+        //             }
+        //             _this.obj.style.filter = 'alpha(opacity=' + _this.curentOpacity + ')';
+        //             _this.obj.style.opacity = _this.curentOpacity * 0.01;
+        //         }, _this.jiange);
+        //     }
+        //     //获取元素当前的透明度，返回0到100的整数
+        // animate.prototype.getOpacity = function() {
+        //         var opacityValue = 0;
+        //         //此处第一次执行时this.obj.style不能获取到obj的透明度
+        //         if (window.getComputedStyle) { //标准浏览器
+        //             opacityValue = parseFloat(getComputedStyle(this.obj).opacity) * 100;
+        //         } else { //非标准浏览器
+        //             var reg = /\d+/;
+        //             opacityValue = parseFloat(this.obj.currentStyle.filter.match(reg)[0]);
+        //         }
+        //         return opacityValue;
+        //     }
+        //     //根据id获取元素当前的透明度，返回0到100的整数，相当于animate类的静态方法
+        // animate.prototype.getOpacityById = function(id) {
+        //     var newobj = document.getElementById(id);
+        //     var opacityValue = 0;
+        //     if (window.getComputedStyle) { //标准浏览器
+        //         opacityValue = parseFloat(getComputedStyle(newobj).opacity) * 100;
+        //     } else { //非标准浏览器
+        //         var reg = /\d+/;
+        //         opacityValue = parseFloat(newobj.currentStyle.filter.match(reg)[0]);
+        //     }
+        //     return opacityValue;
+        // }
+    </script>
+</head>
+
+<body>
+    目标位置<input type="text" id="target" /> 运动幅度(像素)
+    <input type="text" id="speed" /> 运动间隔时间(毫秒)
+    <input type="text" id="timeinterval" />
+    <input type="button" id="btn1" value='X轴运动' />
+    <input type="button" id="btn2" value='Y轴运动' />
+    <input type="button" id='btn3' value='淡入淡出' />
+    <div id='div1'></div>
+</body>
+
+</html>
