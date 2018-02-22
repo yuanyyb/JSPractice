@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #img1 {
+            width: 300px;
+            height: 400px;
+            opacity: 0.3;
+            filter: alpha(opacity=30);
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var oImg = document.getElementById('img1');
+            oImg.onmouseover = function() {
+                startChange(100);
+            }
+            oImg.onmouseout = function() {
+                startChange(30);
+            }
+        };
+
+        var timer = null;
+        var alpha = 30;
+
+        function startChange(target) {
+            var oImg = document.getElementById('img1');
+            var speed = 0;
+            clearInterval(timer);
+            timer = setInterval(function() {
+                if (target > alpha) {
+                    speed = 1;
+                } else {
+                    speed = -1;
+                }
+                if (alpha == target) {
+                    clearInterval(timer);
+                } else {
+                    alpha += speed;
+                    oImg.style.filter = 'alpha(opacity=' + alpha + ')';
+                    oImg.style.opacity = alpha * 0.01;
+                }
+            }, 30);
+        }
+    </script>
+</head>
+
+<body>
+    <img id='img1' src='1.jpg' />
+</body>
+
+</html>
