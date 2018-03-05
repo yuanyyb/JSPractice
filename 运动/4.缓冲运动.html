@@ -6,29 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: #f245;
+        }
+    </style>
     <script>
-        bind(window, 'load', fn);
+        window.onload = function() {
 
-        function fn() {
-            bind(document, 'mousewheel', fn1);
-            var div = document.getElementById('div1');
-            var div2 = document.getElementById('div2');
-            bind(div, 'mouseover', fn2);
-            bind(div, 'mouseout', fn2);
-            bind(div2, 'mouseover', fn2);
-            bind(div2, 'mouseout', fn2);
-        }
-
-        function fn1(ev) {
-            var ev = ev || event;
-            console.log('pageX/Y:' + ev.pageX + '/' + ev.pageY + '---clientX/Y:' + ev.clientX + '/' + ev.clientY)
-        }
-
-        function fn2(ev) {
-            var ev = ev || event;
-            console.log('target:' + ev.target.id + ';' + 'type:' + ev.type + ';relatedTarget:' + ev.relatedTarget.id);
-        }
-
+            }
+            //绑定事件处理函数
         function bind(obj, evname, fn) {
             if (obj.addEventListener) {
                 obj.addEventListener(evname, fn, false);
@@ -42,10 +31,8 @@
 </head>
 
 <body>
-    <div id="dddd" style="height:2000px;width:1000px;background:#f2f2f2;">
-        <div id="div1" style="height:100px;width:100px;background:red;">div1</div>
-        <div id="div2" style="height:100px;width:100px;background:blue;">div2</div>
-    </div>
+    <input type="button" value="开始运动" onclick="startMove()" />
+    <div id="div1"></div>
 </body>
 
 </html>

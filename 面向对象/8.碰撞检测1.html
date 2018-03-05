@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            z-index: 2;
+        }
+        
+        #img1 {
+            position: absolute;
+            left: 250px;
+            top: 250px;
+            border: 1px solid red;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var oDiv = document.getElementById('div1');
+            var oImg = document.getElementById('img1');
+            drag(oDiv, oImg);
+        }
+
+        function drag(obj, obj2) {
+            obj.onmousedown = function(ev) {
+                var ev = ev || event;
+                var disX = ev.clientX - this.offsetLeft;
+                var disY = ev.clientY - this.offsetTop;
+                if (obj.setCapture) {
+                    obj.setCapture();
+                }
+                document.onmousemove = function(ev) {
+                    var ev = ev || event;
+                    var L = ev.clientX - disX;
+                    var T = ev.clientY - disY;
+                    var parenObj = null;
+                    if (obj.offsetParent.nodeName == 'BODY') {
+                        parenObj = document.getElementsByTagName('body')[0];
+                    } else {
+                        parenObj = obj.offsetParent;
+                    }
+                    if (L < 0) {
+                        L = 0;
+                    } else if (L > parenObj.clientWidth - obj.clientWidth) {
+                        L = parenObj.clientWidth - obj.clientWidth;
+                    }
+
+                    if (T < 0) {
+                        T = 0;
+                    } else if (T > parenObj.clientHeight - obj.clientHeight) {
+                        T = parenObj.clientHeight - obj.clientHeight;
+                    }
+                    var res = true;
+                    if (obj2) {
+                        //可移动div
+                        var L1 = L;
+                        var T1 = T;
+                        var R1 = L + obj.offsetWidth;
+                        var B1 = T + obj.offsetHeight;
+                        //固定的元素
+                        var L2 = obj2.offsetLeft;
+                        var T2 = obj2.offsetTop;
+                        var R2 = L2 + obj2.offsetWidth;
+                        var B2 = T2 + obj2.offsetHeight;
+                        if (R1 < L2 || L1 > R2 || B1 < T2 || T1 > B2) {
+                            // obj2.src = '1.jpg';
+                            res = false;
+                        } else {
+                            // obj2.src = '2.jpg';
+                            res = true;
+                        }
+
+                    }
+                    obj.style.left = L + "px";
+                    obj.style.top = T + "px";
+                    return res;
+                }
+                document.onmouseup = function() {
+                    document.onmousemove = document.onmouseup = null;
+                    if (obj.releaseCapture) {
+                        obj.releaseCapture();
+                    }
+                }
+                return false;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="fdiv" style="width:700px;height:800px;margin:0 auto;position:relative;background:#f2f2f2;">
+        <div id="div1"></div>
+        <img src="1.jpg" id="img1" />
+    </div>
+</body>
+
+</html>

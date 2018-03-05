@@ -1,0 +1,317 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .clear {
+            zoom: 1;
+        }
+        
+        .clear::after {
+            content: '';
+            clear: both;
+            display: block;
+        }
+        
+        #div1 {
+            width: 1000px;
+            height: 1200px;
+            background: #f2f2f2;
+            margin: 0 auto;
+            position: relative
+        }
+        
+        .drag_bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            background: black;
+            width: 100%;
+            height: 100%;
+            border: 1px solid blue;
+        }
+        
+        .drag_wrap {
+            width: 80%;
+            height: 80%;
+            background: #ffffff;
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            border: 1px solid #bcbcbc;
+        }
+        
+        .drag_head {
+            height: 30px;
+            background: #f2f2f2;
+            width: 100%;
+            cursor: move;
+        }
+        
+        .drag_head article {
+            line-height: 30px;
+            color: #333333;
+            font-size: 14px;
+            font-weight: 900;
+            padding-left: 5px;
+            float: left;
+        }
+        
+        .drag_head a {
+            display: block;
+            float: right;
+            height: 16px;
+            cursor: pointer;
+            padding: 7px 5px;
+        }
+        
+        .table_normal {
+            border-collapse: collapse;
+            width: 70%;
+            margin: 20px auto 6px auto;
+        }
+        
+        .table_normal th {
+            background: #34495e;
+            color: #ffffff;
+            border: 1px solid #bcbcbc;
+            font-size: 14px;
+        }
+        
+        .table_normal td {
+            border: 1px solid #bcbcbc;
+            height: 25px;
+        }
+        
+        .trchecked {
+            background: #e7ecf1;
+        }
+        
+        .table_info {
+            border-collapse: collapse;
+            margin: 8px auto 0 auto;
+            width: 70%;
+            border-top: 1px solid #bcbcbc;
+        }
+        
+        .table_info td {
+            height: 28px;
+            padding-top: 20px;
+            font-size: 14px;
+        }
+        
+        .table_info input {
+            height: 28px;
+            line-height: 28px;
+            width: 100%;
+            font-size: 13px;
+        }
+        
+        .table_info textarea {
+            width: 100%;
+            resize: none;
+            font-size: 13px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- draghead按下，拖动wrap -->
+    <div id='div1'>
+        <div id="drag_bg" class="drag_bg">
+            <div id='drag_wrap' class="drag_wrap">
+                <div id='drag_head' class="drag_head">
+                    <article>不合格轨枕详情</article>
+                    <a><img src="u3570_mouseOver.png" /></a>
+                </div>
+                <div id='drag_content' class="drag_content">
+                    <table class="table_normal">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>生产批次</th>
+                                <th>处置编号</th>
+                                <th>不合格数量</th>
+                                <th>发生日期</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="trchecked">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="pager" style="background:red;width:70%;height:30px;margin:0 auto;">
+                        分页插件
+                    </div>
+                    <table class="table_info">
+                        <tr>
+                            <td>工序名称</td>
+                            <td><input type="text" value="模板"></td>
+                            <td>不合格项目</td>
+                            <td><input type="text" value="模板"></td>
+                        </tr>
+                        <tr>
+                            <td>标准值</td>
+                            <td><input type="text" value="模板"></td>
+                            <td>实际值</td>
+                            <td><input type="text" value="模板"></td>
+                        </tr>
+                        <tr>
+                            <td>原因分析</td>
+                            <td colspan="3"><textarea rows="3"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>整改措施</td>
+                            <td colspan="3"><textarea rows="3"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>处置结果</td>
+                            <td colspan="3"><textarea rows="3"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>处置人</td>
+                            <td><input type="text" value="模板"></td>
+                            <td>处置时间</td>
+                            <td><input type="text" value="模板"></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+    //修改面向对象方法：变量-->属性
+    //                事件执行函数-->原型上的方法
+    //                注意this指向问题
+    window.onload = function() {
+        //new DragClass('div2');
+        new LimitDragClass('div3');
+    }
+
+    function DragClass(id) {
+        this.obj = document.getElementById(id);
+        this.disX = 0;
+        this.disY = 0;
+        var _this = this;
+        this.oParent = null;
+        if (this.obj) {
+            this.obj.onmousedown = function() {
+                _this.fnDown();
+            }
+        }
+
+    }
+    DragClass.prototype.fnDown = function(ev) {
+        var ev = ev || event;
+        this.disX = ev.clientX - this.obj.offsetLeft;
+        this.disY = ev.clientY - this.obj.offsetTop;
+        if (this.obj.setCapture) { //设置全局捕获
+            this.obj.setCapture();
+        }
+        var _this = this;
+        document.onmousemove = function() {
+            _this.fnMove();
+        }
+        document.onmouseup = function() {
+            _this.fnUp();
+        }
+        return false;
+    }
+    DragClass.prototype.fnMove = function(ev) {
+        var ev = ev || event;
+
+        if (this.obj.offsetParent.nodeName == 'BODY') {
+            this.oParent = document.getElementsByName('body')[0];
+        } else {
+            this.oParent = this.obj.offsetParent;
+        }
+        var disL = ev.clientX - this.disX;
+        var disT = ev.clientY - this.disY;
+        this.obj.style.left = disL + 'px';
+        this.obj.style.top = disT + 'px';
+    }
+    DragClass.prototype.fnUp = function() {
+        document.onmousemove = document.onmouseup = null;
+        if (this.obj.releaseCapture) {
+            this.obj.releaseCapture();
+        }
+    }
+
+    //继承DragClass
+    function LimitDragClass(id) {
+        DragClass.call(this, id);
+    }
+    for (var i in DragClass.prototype) {
+        LimitDragClass.prototype[i] = DragClass.prototype[i];
+    }
+    //重写父类方法，但不修改父类的方法
+    LimitDragClass.prototype.fnMove = function(ev) {
+        var ev = ev || event;
+
+        if (this.obj.offsetParent.nodeName == 'BODY') {
+            this.oParent = document.getElementsByName('body')[0];
+        } else {
+            this.oParent = this.obj.offsetParent;
+        }
+        var disL = ev.clientX - this.disX;
+        var disT = ev.clientY - this.disY;
+
+        if (disL < 0) {
+            disL = 0;
+        } else if (disL > this.oParent.clientWidth - this.obj.clientWidth) {
+            disL = this.oParent.clientWidth - this.obj.clientWidth;
+        }
+        if (disT < 0) {
+            disT = 0;
+        } else if (disT > this.oParent.clientHeight - this.obj.clientHeight) {
+            disT = this.oParent.clientHeight - this.obj.clientHeight;
+        }
+
+        this.obj.style.left = disL + 'px';
+        this.obj.style.top = disT + 'px';
+    }
+</script>
+
+</html>

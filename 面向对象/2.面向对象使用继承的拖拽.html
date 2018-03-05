@@ -1,0 +1,178 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #div1 {
+            width: 500px;
+            height: 600px;
+            background: #f2f2f2;
+            margin: 0 auto;
+            position: relative
+        }
+        
+        #div2 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+        
+        #div3 {
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+    </style>
+    <script>
+        // window.onload = function() {
+        //     Drag('div2');
+        // }
+
+        // function Drag(id) {
+        //     var obj = document.getElementById(id);
+        //     obj.onmousedown = function(ev) {
+        //         var ev = ev || event;
+        //         var disX = ev.clientX - this.offsetLeft;
+        //         var disY = ev.clientY - this.offsetTop;
+        //         if (obj.setCapture) { //设置全局捕获
+        //             obj.setCapture();
+        //         }
+        //         document.onmousemove = function(ev) {
+        //             var ev = ev || event;
+        //             var oParent = null;
+        //             if (obj.offsetParent.nodeName == 'BODY') {
+        //                 oParent = document.getElementsByName('body')[0];
+        //             } else {
+        //                 oParent = obj.offsetParent;
+        //             }
+        //             var disL = ev.clientX - disX;
+        //             var disT = ev.clientY - disY;
+
+        //             if (disL < 0) {
+        //                 disL = 0;
+        //             } else if (disL > oParent.clientWidth - obj.clientWidth) {
+        //                 disL = oParent.clientWidth - obj.clientWidth;
+        //             }
+        //             if (disT < 0) {
+        //                 disT = 0;
+        //             } else if (disT > oParent.clientHeight - obj.clientHeight) {
+        //                 disT = oParent.clientHeight - obj.clientHeight;
+        //             }
+
+        //             obj.style.left = disL + 'px';
+        //             obj.style.top = disT + 'px';
+        //         }
+        //         document.onmouseup = function() {
+        //             document.onmousemove = document.onmouseup = null;
+        //             if (obj.releaseCapture) {
+        //                 obj.releaseCapture();
+        //             }
+        //         }
+        //         return false;
+        //     }
+        // }
+        //修改面向对象方法：变量-->属性
+        //                事件执行函数-->原型上的方法
+        //                注意this指向问题
+        window.onload = function() {
+            new DragClass('div2');
+            new LimitDragClass('div3');
+        }
+
+        function DragClass(id) {
+            this.obj = document.getElementById(id);
+            this.disX = 0;
+            this.disY = 0;
+            var _this = this;
+            this.oParent = null;
+            this.obj.onmousedown = function() {
+                _this.fnDown();
+            }
+        }
+        DragClass.prototype.fnDown = function(ev) {
+            var ev = ev || event;
+            this.disX = ev.clientX - this.obj.offsetLeft;
+            this.disY = ev.clientY - this.obj.offsetTop;
+            if (this.obj.setCapture) { //设置全局捕获
+                this.obj.setCapture();
+            }
+            var _this = this;
+            document.onmousemove = function() {
+                _this.fnMove();
+            }
+            document.onmouseup = function() {
+                _this.fnUp();
+            }
+            return false;
+        }
+        DragClass.prototype.fnMove = function(ev) {
+            var ev = ev || event;
+
+            if (this.obj.offsetParent.nodeName == 'BODY') {
+                this.oParent = document.getElementsByName('body')[0];
+            } else {
+                this.oParent = this.obj.offsetParent;
+            }
+            var disL = ev.clientX - this.disX;
+            var disT = ev.clientY - this.disY;
+            this.obj.style.left = disL + 'px';
+            this.obj.style.top = disT + 'px';
+        }
+        DragClass.prototype.fnUp = function() {
+            document.onmousemove = document.onmouseup = null;
+            if (this.obj.releaseCapture) {
+                this.obj.releaseCapture();
+            }
+        }
+
+        //继承DragClass
+        function LimitDragClass(id) {
+            DragClass.call(this, id);
+        }
+        for (var i in DragClass.prototype) {
+            LimitDragClass.prototype[i] = DragClass.prototype[i];
+        }
+        //重写父类方法，但不修改父类的方法
+        LimitDragClass.prototype.fnMove = function(ev) {
+            var ev = ev || event;
+
+            if (this.obj.offsetParent.nodeName == 'BODY') {
+                this.oParent = document.getElementsByName('body')[0];
+            } else {
+                this.oParent = this.obj.offsetParent;
+            }
+            var disL = ev.clientX - this.disX;
+            var disT = ev.clientY - this.disY;
+
+            if (disL < 0) {
+                disL = 0;
+            } else if (disL > this.oParent.clientWidth - this.obj.clientWidth) {
+                disL = this.oParent.clientWidth - this.obj.clientWidth;
+            }
+            if (disT < 0) {
+                disT = 0;
+            } else if (disT > this.oParent.clientHeight - this.obj.clientHeight) {
+                disT = this.oParent.clientHeight - this.obj.clientHeight;
+            }
+
+            this.obj.style.left = disL + 'px';
+            this.obj.style.top = disT + 'px';
+        }
+    </script>
+</head>
+
+<body>
+    <div id='div1'>
+        <div id='div2'></div>
+        <div id='div3'></div>
+    </div>
+</body>
+
+</html>
