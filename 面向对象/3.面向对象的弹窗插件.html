@@ -219,6 +219,8 @@
             </div>
         </div>
 
+
+
     </div>
 </body>
 <script>
@@ -227,28 +229,115 @@
     //                注意this指向问题
     window.onload = function() {
         //new DragClass('div2');
-        new LimitDragClass('div3');
+        //new LimitDragClass('drag_head', 'drag_wrap');
+        new winOpen('drag_head', 'drag_wrap', 'drag_bg');
     }
 
-    function DragClass(id) {
-        this.obj = document.getElementById(id);
+    // function DragClass(id) {
+    //     this.obj = document.getElementById(id);
+    //     this.disX = 0;
+    //     this.disY = 0;
+    //     var _this = this;
+    //     this.oParent = null;
+    //     if (this.obj) {
+    //         this.obj.onmousedown = function() {
+    //             _this.fnDown();
+    //         }
+    //     }
+
+    // }
+    // DragClass.prototype.fnDown = function(ev) {
+    //     var ev = ev || event;
+    //     this.disX = ev.clientX - this.obj.offsetLeft;
+    //     this.disY = ev.clientY - this.obj.offsetTop;
+    //     if (this.obj.setCapture) { //设置全局捕获
+    //         this.obj.setCapture();
+    //     }
+    //     var _this = this;
+    //     document.onmousemove = function() {
+    //         _this.fnMove();
+    //     }
+    //     document.onmouseup = function() {
+    //         _this.fnUp();
+    //     }
+    //     return false;
+    // }
+    // DragClass.prototype.fnMove = function(ev) {
+    //     var ev = ev || event;
+
+    //     if (this.obj.offsetParent.nodeName == 'BODY') {
+    //         this.oParent = document.getElementsByName('body')[0];
+    //     } else {
+    //         this.oParent = this.obj.offsetParent;
+    //     }
+    //     var disL = ev.clientX - this.disX;
+    //     var disT = ev.clientY - this.disY;
+    //     this.obj.style.left = disL + 'px';
+    //     this.obj.style.top = disT + 'px';
+    // }
+    // DragClass.prototype.fnUp = function() {
+    //     document.onmousemove = document.onmouseup = null;
+    //     if (this.obj.releaseCapture) {
+    //         this.obj.releaseCapture();
+    //     }
+    // }
+
+    // //继承DragClass
+    // function LimitDragClass(id) {
+    //     DragClass.call(this, id);
+    // }
+    // for (var i in DragClass.prototype) {
+    //     LimitDragClass.prototype[i] = DragClass.prototype[i];
+    // }
+    // //重写父类方法，但不修改父类的方法
+    // LimitDragClass.prototype.fnMove = function(ev) {
+    //         var ev = ev || event;
+
+    //         if (this.obj.offsetParent.nodeName == 'BODY') {
+    //             this.oParent = document.getElementsByName('body')[0];
+    //         } else {
+    //             this.oParent = this.obj.offsetParent;
+    //         }
+    //         var disL = ev.clientX - this.disX;
+    //         var disT = ev.clientY - this.disY;
+
+    //         if (disL < 0) {
+    //             disL = 0;
+    //         } else if (disL > this.oParent.clientWidth - this.obj.clientWidth) {
+    //             disL = this.oParent.clientWidth - this.obj.clientWidth;
+    //         }
+    //         if (disT < 0) {
+    //             disT = 0;
+    //         } else if (disT > this.oParent.clientHeight - this.obj.clientHeight) {
+    //             disT = this.oParent.clientHeight - this.obj.clientHeight;
+    //         }
+
+    //         this.obj.style.left = disL + 'px';
+    //         this.obj.style.top = disT + 'px';
+    //     }
+
+    //3个div 鼠标按下div，移动的div，限制div
+    function winOpen(clickid, moveid, wrapid) {
+        this.clickObj = document.getElementById(clickid);
+        this.moveObj = document.getElementById(moveid);
+        this.limitObj = document.getElementById(wrapid);
         this.disX = 0;
         this.disY = 0;
         var _this = this;
-        this.oParent = null;
-        if (this.obj) {
-            this.obj.onmousedown = function() {
+        if (this.clickObj) {
+            this.clickObj.onmousedown = function() {
                 _this.fnDown();
             }
         }
-
     }
-    DragClass.prototype.fnDown = function(ev) {
+
+    winOpen.prototype.fnDown = function(ev) {
         var ev = ev || event;
-        this.disX = ev.clientX - this.obj.offsetLeft;
-        this.disY = ev.clientY - this.obj.offsetTop;
-        if (this.obj.setCapture) { //设置全局捕获
-            this.obj.setCapture();
+        //此处this指向winOpen对象
+        this.disX = ev.clientX - this.moveObj.offsetLeft;
+        this.disY = ev.clientY - this.moveObj.offsetTop;
+        if (this.clickObj.setCapture) { //设置全局捕获
+            this.clickObj.setCapture();
         }
         var _this = this;
         document.onmousemove = function() {
@@ -257,60 +346,36 @@
         document.onmouseup = function() {
             _this.fnUp();
         }
+        ev.stopPropagation();
+        ev.cancleBubble = true;
         return false;
     }
-    DragClass.prototype.fnMove = function(ev) {
+
+    winOpen.prototype.fnMove = function(ev) {
         var ev = ev || event;
-
-        if (this.obj.offsetParent.nodeName == 'BODY') {
-            this.oParent = document.getElementsByName('body')[0];
-        } else {
-            this.oParent = this.obj.offsetParent;
-        }
-        var disL = ev.clientX - this.disX;
-        var disT = ev.clientY - this.disY;
-        this.obj.style.left = disL + 'px';
-        this.obj.style.top = disT + 'px';
-    }
-    DragClass.prototype.fnUp = function() {
-        document.onmousemove = document.onmouseup = null;
-        if (this.obj.releaseCapture) {
-            this.obj.releaseCapture();
-        }
-    }
-
-    //继承DragClass
-    function LimitDragClass(id) {
-        DragClass.call(this, id);
-    }
-    for (var i in DragClass.prototype) {
-        LimitDragClass.prototype[i] = DragClass.prototype[i];
-    }
-    //重写父类方法，但不修改父类的方法
-    LimitDragClass.prototype.fnMove = function(ev) {
-        var ev = ev || event;
-
-        if (this.obj.offsetParent.nodeName == 'BODY') {
-            this.oParent = document.getElementsByName('body')[0];
-        } else {
-            this.oParent = this.obj.offsetParent;
-        }
         var disL = ev.clientX - this.disX;
         var disT = ev.clientY - this.disY;
 
         if (disL < 0) {
             disL = 0;
-        } else if (disL > this.oParent.clientWidth - this.obj.clientWidth) {
-            disL = this.oParent.clientWidth - this.obj.clientWidth;
+        } else if (disL > this.limitObj.clientWidth - this.moveObj.clientWidth) {
+            disL = this.limitObj.clientWidth - this.moveObj.clientWidth;
         }
         if (disT < 0) {
             disT = 0;
-        } else if (disT > this.oParent.clientHeight - this.obj.clientHeight) {
-            disT = this.oParent.clientHeight - this.obj.clientHeight;
+        } else if (disT > this.limitObj.clientHeight - this.moveObj.clientHeight) {
+            disT = this.limitObj.clientHeight - this.moveObj.clientHeight;
         }
 
-        this.obj.style.left = disL + 'px';
-        this.obj.style.top = disT + 'px';
+        this.moveObj.style.left = disL + 'px';
+        this.moveObj.style.top = disT + 'px';
+    }
+
+    winOpen.prototype.fnUp = function() {
+        document.onmousemove = document.onmouseup = null;
+        if (this.clickObj.releaseCapture) {
+            this.clickObj.releaseCapture();
+        }
     }
 </script>
 
