@@ -23,8 +23,20 @@ npm命令：
 1.安装webpack
   全局安装：                                    npm install -g webpack
   项目安装(进入到项目文件夹中)：                npm install --save-dev webpack
-  创建package.json文件                          npm init
-  
+  创建package.json文件：                        npm init
+  创建webpack.config.js文件后：                 npm start    //读取webpack.config.js中的配置执行编译将ES6编译成浏览器能使用的js
+  安装本地服务监测代码变动自动刷新页面：        npm install --save-dev webpack-dev-server 
+  安装后启动服务：                              npm run server
+
+
+
+
+
+
+
+
+
+
 
 
 
