@@ -7,7 +7,7 @@
 删除文件夹：                rd /s /q c:\text\myfolder   加/s删除子级文件夹(弹出是否确认),/q静默，直接删除文件夹及子级
 创建空文件：                type nul>myfile.txt     
 删除文件：                  del myfile.txt     
-
+清空当前cmd窗口所有内容     cls
 
 
 
@@ -27,6 +27,7 @@ npm命令：
   创建webpack.config.js文件后：                 npm start    //读取webpack.config.js中的配置执行编译将ES6编译成浏览器能使用的js
   安装本地服务监测代码变动自动刷新页面：        npm install --save-dev webpack-dev-server 
   安装后启动服务：                              npm run server
+
 
 
 
